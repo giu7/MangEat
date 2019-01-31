@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">MangEat</string>
+    <string name="email_hint">Inserisci email</string>
+    <string name="password_hint">Inserisci password</string>
+    <string name="login">Login</string>
+    <string name="register">Registrati</string>
+    <string name="email_error">Indirizzo email non valido</string>
+    <string name="password_error">Password non valida</string>
+    <string name="login_ok">Login effettuato con successo</string>
+    <string name="confirm_password">Conferma password</string>
+    <string name="ins_nome">Nome</string>
+    <string name="ins_cognome">Cognome</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="ricordami">Ricordami</string>
+</resources>
