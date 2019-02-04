@@ -52,9 +52,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         Toast.makeText(this, getString(resID), Toast.LENGTH_SHORT).show();
     }
 
-    private void printToast(String s){
+    /*private void printToast(String s){
         Toast.makeText(this, s, Toast.LENGTH_SHORT).show();
-    }
+    }*/
 
     private void doLogin(){
 
