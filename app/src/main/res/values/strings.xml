@@ -15,4 +15,5 @@
     <string name="ricordami">Ricordami</string>
     <string name="checkout">Checkout</string>
     <string name="min_ordine">Ordine minimo: € </string>
+    <string name="pizza">pizza</string>
 </resources>

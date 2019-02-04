@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.giu7.mangeat.R;
@@ -35,8 +36,7 @@ public class RestaurantAdapter extends RecyclerView.Adapter {
         RestaurantViewHolder vh = (RestaurantViewHolder)viewHolder;
         vh.restaurantName.setText(data.get(position).getNome());
         vh.restaurantAddress.setText(data.get(position).getIndirizzo());
-        vh.restaurantMinOrder.setText(vh.restaurantMinOrder.getText()+String.valueOf(data.get(position).getMinOrdine()));
-
+        vh.restaurantMinOrder.append(String.valueOf(data.get(position).getMinOrdine()));
     }
 
     @Override
