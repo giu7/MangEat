@@ -2,6 +2,8 @@ package com.giu7.mangeat;
 
 public class Utils {
 
+//            Toast.makeText(this, s, Toast.LENGTH_SHORT).show();
+
     final public static int PASSWORD_LENGTH = 6;
     final public static String PACKAGE_NAME = "com.giu7.mangeat";
 

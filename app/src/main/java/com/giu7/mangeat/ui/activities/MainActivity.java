@@ -9,6 +9,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 
 import com.giu7.mangeat.R;
 import com.giu7.mangeat.Utils;
@@ -17,7 +19,7 @@ import com.giu7.mangeat.ui.adapters.RestaurantAdapter;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity{
 
     RecyclerView restaurantRV;
     RecyclerView.LayoutManager layoutManager;
@@ -42,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_main);
         restaurantRV = findViewById(R.id.places_rv);
+
         layoutManager = new LinearLayoutManager(this);
         adapter = new RestaurantAdapter(this, getData());
 
@@ -76,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
             setLayoutManager();
             return true;
         }
-        if (item.getItemId()==R.id.login_menu){
+        else if (item.getItemId()==R.id.login_menu){
             startActivity(new Intent(this, LoginActivity.class));
             return true;
         }
@@ -85,9 +88,9 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
 
-
         return super.onOptionsItemSelected(item);
     }
+
 
     private void setLayoutManager(){
         layoutManager = new LinearLayoutManager(this);

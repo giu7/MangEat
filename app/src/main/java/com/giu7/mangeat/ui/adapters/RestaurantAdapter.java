@@ -1,6 +1,7 @@
 package com.giu7.mangeat.ui.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 
 import com.giu7.mangeat.R;
 import com.giu7.mangeat.datamodels.Restaurant;
+import com.giu7.mangeat.ui.activities.ShopActivity;
 
 import java.util.ArrayList;
 
@@ -65,6 +67,7 @@ public class RestaurantAdapter extends RecyclerView.Adapter {
         public TextView restaurantAddress;
         public TextView restaurantMinOrder;
         public ImageView restaurantImage;
+        //public Button menuBtn;
 
         public RestaurantViewHolder(View itemView) {
             super(itemView);
@@ -72,6 +75,20 @@ public class RestaurantAdapter extends RecyclerView.Adapter {
             restaurantAddress=itemView.findViewById(R.id.address_tv);
             restaurantMinOrder= itemView.findViewById(R.id.min_order_tv);
             restaurantImage=itemView.findViewById(R.id.img_iv);
+            /*menuBtn=itemView.findViewById(R.id.menu_btn);
+            menuBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    context.startActivity(new Intent(context, ShopActivity.class));
+                }
+            });*/
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    context.startActivity(new Intent(context, ShopActivity.class));
+                }
+            });
         }
     }
 }
