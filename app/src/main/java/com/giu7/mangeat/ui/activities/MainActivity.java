@@ -1,6 +1,7 @@
 package com.giu7.mangeat.ui.activities;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -10,6 +11,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import com.giu7.mangeat.R;
+import com.giu7.mangeat.Utils;
 import com.giu7.mangeat.datamodels.Restaurant;
 import com.giu7.mangeat.ui.adapters.RestaurantAdapter;
 
@@ -22,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
     RestaurantAdapter adapter;
     ArrayList<Restaurant> arrayList;
 
-   
+    SharedPreferences prefs;
 
 
     private ArrayList<Restaurant> getData(){
@@ -37,13 +39,28 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
         restaurantRV = findViewById(R.id.places_rv);
         layoutManager = new LinearLayoutManager(this);
         adapter = new RestaurantAdapter(this, getData());
 
+        prefs = getSharedPreferences(Utils.PACKAGE_NAME,MODE_PRIVATE);
+        if (prefs != null) {
+            adapter.setGridMode(prefs.getBoolean("viewMode",true));
+        }
+
         restaurantRV.setLayoutManager(layoutManager);
         restaurantRV.setAdapter(adapter);
+
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        SharedPreferences.Editor preferencesEditor = prefs.edit();
+        preferencesEditor.putBoolean("viewMode", adapter.isGridMode());
+        preferencesEditor.apply();
     }
 
     @Override

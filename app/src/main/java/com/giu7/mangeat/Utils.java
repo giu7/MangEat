@@ -3,6 +3,7 @@ package com.giu7.mangeat;
 public class Utils {
 
     final public static int PASSWORD_LENGTH = 6;
+    final public static String PACKAGE_NAME = "com.giu7.mangeat";
 
     public static boolean checkMail(String mail){
         if (mail == null)
