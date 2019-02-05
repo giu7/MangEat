@@ -4,11 +4,20 @@ public class Restaurant {
     private String nome;
     private String indirizzo;
     private float minOrdine;
+    private int img;
+
 
     public Restaurant(String nome, String indirizzo, float minOrdine) {
         this.nome = nome;
         this.indirizzo = indirizzo;
         this.minOrdine = minOrdine;
+    }
+
+    public Restaurant(String nome, String indirizzo, float minOrdine, int img) {
+        this.nome = nome;
+        this.indirizzo = indirizzo;
+        this.minOrdine = minOrdine;
+        this.img = img;
     }
 
     public String getNome() {
@@ -34,4 +43,13 @@ public class Restaurant {
     public void setMinOrdine(float minOrdine) {
         this.minOrdine = minOrdine;
     }
+
+    public int getImg() {
+        return img;
+    }
+
+    public void setImg(int img) {
+        this.img = img;
+    }
+
 }

@@ -18,25 +18,40 @@ public class RestaurantAdapter extends RecyclerView.Adapter {
 
     private LayoutInflater inflater;
     private ArrayList<Restaurant> data;
+    private Context context;
+    private boolean isGridMode;
+
+    public boolean isGridMode(){
+        return  isGridMode;
+    }
+
+    public void setGridMode(boolean mode){
+        isGridMode=mode;
+    }
 
     public RestaurantAdapter(Context context, ArrayList<Restaurant> data){
         inflater = LayoutInflater.from(context);
         this.data = data;
+        this.context = context;
     }
 
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
-        View view = inflater.inflate(R.layout.item_restaurant, viewGroup, false);
+        int layout = isGridMode? R.layout.item_restaurant_grid : R.layout.item_restaurant;
+        View view = inflater.inflate(layout, viewGroup, false);
         return new RestaurantViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int position) {
         RestaurantViewHolder vh = (RestaurantViewHolder)viewHolder;
-        vh.restaurantName.setText(data.get(position).getNome());
-        vh.restaurantAddress.setText(data.get(position).getIndirizzo());
-        vh.restaurantMinOrder.append(String.valueOf(data.get(position).getMinOrdine()));
+        Restaurant item = data.get(position);
+
+        vh.restaurantName.setText(item.getNome());
+        vh.restaurantAddress.setText(item.getIndirizzo());
+        vh.restaurantMinOrder.append(String.valueOf(item.getMinOrdine()));
+        vh.restaurantImage.setImageResource(item.getImg());
     }
 
     @Override
@@ -49,12 +64,14 @@ public class RestaurantAdapter extends RecyclerView.Adapter {
         public TextView restaurantName;
         public TextView restaurantAddress;
         public TextView restaurantMinOrder;
+        public ImageView restaurantImage;
 
         public RestaurantViewHolder(View itemView) {
             super(itemView);
             restaurantName=itemView.findViewById(R.id.name_tv);
             restaurantAddress=itemView.findViewById(R.id.address_tv);
             restaurantMinOrder= itemView.findViewById(R.id.min_order_tv);
+            restaurantImage=itemView.findViewById(R.id.img_iv);
         }
     }
 }

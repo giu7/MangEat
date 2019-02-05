@@ -16,4 +16,6 @@
     <string name="checkout">Checkout</string>
     <string name="min_ordine">Ordine minimo: € </string>
     <string name="pizza">pizza</string>
+    <string name="menu">Menù</string>
+    <string name="view_mode">viewMode</string>
 </resources>

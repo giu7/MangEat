@@ -22,20 +22,14 @@ public class MainActivity extends AppCompatActivity {
     RestaurantAdapter adapter;
     ArrayList<Restaurant> arrayList;
 
-    /*private ArrayList<String> getData(){
-        arrayList = new ArrayList<>();
-        arrayList.add("Mc Donald's");
-        arrayList.add("Burger King");
-        arrayList.add("KFC");
+   
 
-        return arrayList;
-    }*/
 
     private ArrayList<Restaurant> getData(){
         arrayList = new ArrayList<>();
-        arrayList.add(new Restaurant("Mc Donald's", "Via Tiburtina 10", 5.00f));
-        arrayList.add(new Restaurant("Burger King", "Via Sandro Sandri 100", 3.00f));
-        arrayList.add(new Restaurant("KFC", "Via Italia 7", 10.00f));
+        arrayList.add(new Restaurant("Mc Donald's", "Via Tiburtina 10", 5.00f, R.drawable.mcdonalds));
+        arrayList.add(new Restaurant("Burger King", "Via Sandro Sandri 100", 3.00f, R.drawable.burgerking));
+        arrayList.add(new Restaurant("KFC", "Via Italia 7", 10.00f, R.drawable.kfc));
 
         return arrayList;
     }
@@ -61,6 +55,10 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.view_mode){
+            setLayoutManager();
+            return true;
+        }
         if (item.getItemId()==R.id.login_menu){
             startActivity(new Intent(this, LoginActivity.class));
             return true;
@@ -72,5 +70,12 @@ public class MainActivity extends AppCompatActivity {
 
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void setLayoutManager(){
+        layoutManager = new LinearLayoutManager(this);
+        adapter.setGridMode(!adapter.isGridMode());
+        restaurantRV.setLayoutManager(layoutManager);
+        restaurantRV.setAdapter(adapter);
     }
 }
