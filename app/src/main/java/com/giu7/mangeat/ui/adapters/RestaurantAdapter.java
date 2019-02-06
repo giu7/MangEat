@@ -75,13 +75,6 @@ public class RestaurantAdapter extends RecyclerView.Adapter {
             restaurantAddress=itemView.findViewById(R.id.address_tv);
             restaurantMinOrder= itemView.findViewById(R.id.min_order_tv);
             restaurantImage=itemView.findViewById(R.id.img_iv);
-            /*menuBtn=itemView.findViewById(R.id.menu_btn);
-            menuBtn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    context.startActivity(new Intent(context, ShopActivity.class));
-                }
-            });*/
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

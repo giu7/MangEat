@@ -23,6 +23,12 @@ public class ShopActivity extends AppCompatActivity {
         arrayList.add(new Food("Hamburger",5.00f));
         arrayList.add(new Food("Chicken Burger",3.00f));
         arrayList.add(new Food("Cheeseburger",10.00f));
+        arrayList.add(new Food("Hamburger",5.00f));
+        arrayList.add(new Food("Chicken Burger",3.00f));
+        arrayList.add(new Food("Cheeseburger",10.00f));
+        arrayList.add(new Food("Hamburger",5.00f));
+        arrayList.add(new Food("Chicken Burger",3.00f));
+        arrayList.add(new Food("Cheeseburger",10.00f));
 
         return arrayList;
     }
@@ -35,5 +41,8 @@ public class ShopActivity extends AppCompatActivity {
         menuRV = findViewById(R.id.menu_rv);
         layoutManager = new LinearLayoutManager(this);
         adapter = new MenuAdapter(this, getData());
+
+        menuRV.setLayoutManager(layoutManager);
+        menuRV.setAdapter(adapter);
     }
 }

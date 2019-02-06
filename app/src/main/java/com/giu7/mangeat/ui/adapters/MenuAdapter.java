@@ -8,8 +8,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.giu7.mangeat.R;
+import com.giu7.mangeat.Utils;
 import com.giu7.mangeat.datamodels.Food;
 
 import java.util.ArrayList;
@@ -63,6 +65,42 @@ public class MenuAdapter extends RecyclerView.Adapter {
             numeroTv=itemView.findViewById(R.id.numero_tv);
             minusBtn=itemView.findViewById(R.id.minus_btn);
             plusBtn=itemView.findViewById(R.id.plus_btn);
+
+
+            plusBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    plusOne();
+                }
+            });
+
+            minusBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    minusOne();
+                }
+            });
+        }
+
+        private void plusOne(){
+            int n = Integer.parseInt((String)numeroTv.getText());
+            if (n==Utils.MAX_PANINI-1)
+                plusBtn.setEnabled(false);
+            if (n==Utils.MIN_PANINI)
+                minusBtn.setEnabled(true);
+            numeroTv.setText(String.valueOf(n+1));
+        }
+
+        private void minusOne(){
+            int n = Integer.parseInt((String)numeroTv.getText());
+            if (n== Utils.MIN_PANINI+1)
+                minusBtn.setEnabled(false);
+            else if (n>Utils.MIN_PANINI+1)
+                minusBtn.setEnabled(true);
+            if (n==Utils.MAX_PANINI)
+                plusBtn.setEnabled(true);
+
+            numeroTv.setText(String.valueOf(n-1));
         }
     }
 }

@@ -6,6 +6,8 @@ public class Utils {
 
     final public static int PASSWORD_LENGTH = 6;
     final public static String PACKAGE_NAME = "com.giu7.mangeat";
+    final public static int MIN_PANINI = 0;
+    final public static int MAX_PANINI = 10;
 
     public static boolean checkMail(String mail){
         if (mail == null)
