@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.giu7.mangeat.R;
 import com.giu7.mangeat.Utils;
@@ -28,6 +27,20 @@ public class MenuAdapter extends RecyclerView.Adapter {
         this.context = context;
     }
 
+    public interface onQuantityChangedListener{
+        void onChange(float price);
+    }
+
+    private onQuantityChangedListener onQuantityChangedListener;
+
+    public MenuAdapter.onQuantityChangedListener getOnQuantityChangedListener() {
+        return onQuantityChangedListener;
+    }
+
+    public void setOnQuantityChangedListener(MenuAdapter.onQuantityChangedListener onQuantityChangedListener) {
+        this.onQuantityChangedListener = onQuantityChangedListener;
+    }
+
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
@@ -41,7 +54,8 @@ public class MenuAdapter extends RecyclerView.Adapter {
         Food item=data.get(position);
 
         vh.menuNomeTv.setText(item.getNome());
-        vh.menuPrezzoTv.append(String.valueOf(item.getPrezzo()));
+        vh.menuPrezzoTv.setText(String.valueOf(item.getPrezzo()));
+        vh.quantitaTv.setText(String.valueOf(item.getQuantita()));
     }
 
     @Override
@@ -52,7 +66,7 @@ public class MenuAdapter extends RecyclerView.Adapter {
     public class MenuViewHolder extends RecyclerView.ViewHolder{
         public TextView menuNomeTv;
         public TextView menuPrezzoTv;
-        public TextView numeroTv;
+        public TextView quantitaTv;
         public Button minusBtn;
         public Button plusBtn;
 
@@ -62,7 +76,7 @@ public class MenuAdapter extends RecyclerView.Adapter {
 
             menuNomeTv=itemView.findViewById(R.id.menu_nome_tv);
             menuPrezzoTv=itemView.findViewById(R.id.menu_prezzo_tv);
-            numeroTv=itemView.findViewById(R.id.numero_tv);
+            quantitaTv =itemView.findViewById(R.id.numero_tv);
             minusBtn=itemView.findViewById(R.id.minus_btn);
             plusBtn=itemView.findViewById(R.id.plus_btn);
 
@@ -83,16 +97,40 @@ public class MenuAdapter extends RecyclerView.Adapter {
         }
 
         private void plusOne(){
-            int n = Integer.parseInt((String)numeroTv.getText());
+            Food food = data.get(getAdapterPosition());
+            int n = food.getQuantita();
+            if (n==Utils.MAX_PANINI) return;
+            /*if (n==Utils.MAX_PANINI-1)
+                plusBtn.setEnabled(false);
+            if (n==Utils.MIN_PANINI)
+                minusBtn.setEnabled(true);*/
+            food.plusQuantita();
+            notifyItemChanged(getAdapterPosition());
+            onQuantityChangedListener.onChange(food.getPrezzo());
+
+            /*int n = Integer.parseInt((String) quantitaTv.getText());
             if (n==Utils.MAX_PANINI-1)
                 plusBtn.setEnabled(false);
             if (n==Utils.MIN_PANINI)
                 minusBtn.setEnabled(true);
-            numeroTv.setText(String.valueOf(n+1));
+            quantitaTv.setText(String.valueOf(n+1));*/
         }
 
         private void minusOne(){
-            int n = Integer.parseInt((String)numeroTv.getText());
+            Food food = data.get(getAdapterPosition());
+            int n = food.getQuantita();
+            if (n==0) return;
+            /*if (n== Utils.MIN_PANINI+1)
+                minusBtn.setEnabled(false);
+            else if (n>Utils.MIN_PANINI+1)
+                minusBtn.setEnabled(true);
+            if (n==Utils.MAX_PANINI)
+                plusBtn.setEnabled(true);*/
+            food.minusQuantita();
+            notifyItemChanged(getAdapterPosition());
+            onQuantityChangedListener.onChange(food.getPrezzo()*(-1));
+
+            /*int n = Integer.parseInt((String) quantitaTv.getText());
             if (n== Utils.MIN_PANINI+1)
                 minusBtn.setEnabled(false);
             else if (n>Utils.MIN_PANINI+1)
@@ -100,7 +138,7 @@ public class MenuAdapter extends RecyclerView.Adapter {
             if (n==Utils.MAX_PANINI)
                 plusBtn.setEnabled(true);
 
-            numeroTv.setText(String.valueOf(n-1));
+            quantitaTv.setText(String.valueOf(n-1));*/
         }
     }
 }

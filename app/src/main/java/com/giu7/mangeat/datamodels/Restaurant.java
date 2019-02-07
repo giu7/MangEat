@@ -1,16 +1,27 @@
 package com.giu7.mangeat.datamodels;
 
+import java.util.ArrayList;
+
 public class Restaurant {
     private String nome;
     private String indirizzo;
     private float minOrdine;
     private int img;
+    private ArrayList<Food> prodotti;
 
+    public ArrayList<Food> getProdotti() {
+        return prodotti;
+    }
+
+    public void setProdotti(ArrayList<Food> prodotti) {
+        this.prodotti = prodotti;
+    }
 
     public Restaurant(String nome, String indirizzo, float minOrdine) {
         this.nome = nome;
         this.indirizzo = indirizzo;
         this.minOrdine = minOrdine;
+        this.prodotti=new ArrayList<>();
     }
 
     public Restaurant(String nome, String indirizzo, float minOrdine, int img) {

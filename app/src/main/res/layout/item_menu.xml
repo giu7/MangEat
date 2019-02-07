@@ -39,7 +39,7 @@
             android:layout_weight="1"
             android:text="@string/minus"
             android:id="@+id/minus_btn"
-            android:enabled="false"
+            android:enabled="true"
             android:backgroundTint="@color/white"/>
 
         <TextView
