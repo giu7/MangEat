@@ -2,21 +2,60 @@
 <RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/header_layout">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:id="@+id/header">
+        android:id="@+id/header"
+        android:weightSum="4"
+        android:layout_margin="10dp">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="20dp"
-            android:gravity="center"
-            android:textSize="24sp"
-            android:text="@string/min_ordine"/>
+        <ImageView
+            android:id="@+id/shop_img_iv"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:layout_gravity="center"
+            android:contentDescription="@string/pizza"
+            android:scaleType="centerCrop"
+            android:src="@drawable/burgerking" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:orientation="vertical"
+            android:gravity="center_vertical"
+            android:layout_marginLeft="10dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:textSize="20sp"
+                android:text="@string/min_ordine" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:text="@string/min_ordine"
+                />
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/shop_map_iv"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:padding="25dp"
+            android:layout_weight="1"
+            android:layout_gravity="center"
+            android:contentDescription="@string/pizza"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_outline_place_24px"
+            />
 
     </LinearLayout>
 
@@ -24,7 +63,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/menu_rv"
-        android:layout_below="@id/header">
+        android:layout_below="@id/header"
+        android:layout_above="@id/footer">
     </android.support.v7.widget.RecyclerView>
 
     <LinearLayout
@@ -33,7 +73,7 @@
         android:orientation="vertical"
         android:id="@+id/footer"
         android:layout_alignParentBottom="true"
-        android:background="@color/white">
+        android:background="@color/colorPrimaryLight">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -55,16 +95,16 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:text="@string/min_ordine"
-                android:layout_marginLeft="20dp"/>
+                android:layout_marginLeft="50dp"
+                android:text="@string/min_ordine" />
 
             <TextView
+                android:id="@+id/min_order_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:id="@+id/min_order_tv"
-                android:text="2.00"/>
+                android:text="2.00" />
 
-        </LinearLayout>
+            </LinearLayout>
 
         <ProgressBar
             android:id="@+id/menu_progress_bar"
@@ -82,8 +122,7 @@
             android:textSize="24dp"
             android:text="@string/checkout"
             android:gravity="center"
-            android:padding="15dp"
-            android:layout_margin="5dp"/>
+            android:padding="15dp"/>
 
     </LinearLayout>
 
