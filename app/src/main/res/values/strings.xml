@@ -22,4 +22,6 @@
     <string name="plus">+</string>
     <string name="minus">-</string>
     <string name="totale">Totale: €</string>
+    <string name="paga">Vai al pagamento</string>
+    <string name="x">x</string>
 </resources>

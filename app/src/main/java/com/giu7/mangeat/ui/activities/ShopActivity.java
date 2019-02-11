@@ -1,9 +1,11 @@
 package com.giu7.mangeat.ui.activities;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -47,6 +49,12 @@ public class ShopActivity extends AppCompatActivity implements MenuAdapter.onQua
         nome=findViewById(R.id.shop_nome_tv);
         indirizzo=findViewById(R.id.shop_address_tv);
         checkout=findViewById(R.id.shop_checkout_btn);
+        checkout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(ShopActivity.this, CheckoutActivity.class));
+            }
+        });
         progressBar=findViewById(R.id.shop_progress_bar);
         progressBar.setMax((int)(restaurant.getMinOrdine()*100));
         logo=findViewById(R.id.shop_img_iv);
@@ -61,7 +69,6 @@ public class ShopActivity extends AppCompatActivity implements MenuAdapter.onQua
 
         menuRV.setLayoutManager(layoutManager);
         menuRV.setAdapter(adapter);
-
 
 
         nome.setText(restaurant.getNome());
@@ -97,13 +104,17 @@ public class ShopActivity extends AppCompatActivity implements MenuAdapter.onQua
 
     private void updateTotal(float item){
         totale+=item;
-        //Toast.makeText(this,String.valueOf(totale),Toast.LENGTH_SHORT).show();
         totaleTv.setText(String.valueOf(totale));
+    }
+
+    private void enableCheckout(){
+        checkout.setEnabled(totale>=restaurant.getMinOrdine());
     }
 
     @Override
     public void onChange(float price) {
         updateTotal(price);
         updateProgress((int)(totale*100));
+        enableCheckout();
     }
 }
