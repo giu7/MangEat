@@ -16,6 +16,17 @@ public class Ordine {
     public Ordine(Restaurant restaurant, ArrayList<Food> foods) {
         this.restaurant = restaurant;
         this.foods = foods;
+        this.totale = calcolaTotale();
+    }
+
+    public float calcolaTotale(){
+        float tot=0;
+        for (Food food : foods){
+            tot+=(food.getQuantita()*food.getPrezzo());
+        }
+
+        totale=tot;
+        return tot;
     }
 
     public float getTotale() {

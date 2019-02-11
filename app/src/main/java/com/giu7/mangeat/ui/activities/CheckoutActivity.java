@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -18,7 +19,7 @@ import com.giu7.mangeat.ui.adapters.CheckoutAdapter;
 
 import java.util.ArrayList;
 
-public class CheckoutActivity extends AppCompatActivity {
+public class CheckoutActivity extends AppCompatActivity implements CheckoutAdapter.onRemovedRowListener{
 
     private RecyclerView rv;
     private RecyclerView.LayoutManager layoutManager;
@@ -34,7 +35,6 @@ public class CheckoutActivity extends AppCompatActivity {
     private Ordine ordine;
     private Restaurant restaurant;
     private ArrayList<Food> arrayList;
-    private float totale;
 
     private Restaurant getRestaurant(){
         return new Restaurant("Pizzeria", "Via da qui", 10.00f, R.drawable.pizza);
@@ -56,7 +56,7 @@ public class CheckoutActivity extends AppCompatActivity {
         setContentView(R.layout.activity_checkout);
 
         restaurant=getRestaurant();
-        ordine=new Ordine(restaurant,getData(),41f);
+        ordine=new Ordine(restaurant,getData());
 
         nome = findViewById(R.id.check_nome_tv);
         indirizzo = findViewById(R.id.check_address_tv);
@@ -68,6 +68,7 @@ public class CheckoutActivity extends AppCompatActivity {
         rv = findViewById(R.id.checkout_rv);
         layoutManager = new LinearLayoutManager(this);
         adapter = new CheckoutAdapter(this, ordine.getFoods());
+        adapter.setOnRemovedRowListener(this);
         rv.setLayoutManager(layoutManager);
         rv.setAdapter(adapter);
 
@@ -77,5 +78,11 @@ public class CheckoutActivity extends AppCompatActivity {
         minOrder.setText(String.valueOf(restaurant.getMinOrdine()));
         totaleTv.setText(String.valueOf(ordine.getTotale()));
 
+    }
+
+    @Override
+    public void onChange(float price) {
+        ordine.calcolaTotale();
+        totaleTv.setText(String.valueOf(ordine.getTotale()));
     }
 }
