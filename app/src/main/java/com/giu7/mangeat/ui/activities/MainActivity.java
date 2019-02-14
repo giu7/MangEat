@@ -12,6 +12,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -22,6 +23,7 @@ import com.android.volley.toolbox.Volley;
 import com.giu7.mangeat.R;
 import com.giu7.mangeat.Utils;
 import com.giu7.mangeat.datamodels.Restaurant;
+import com.giu7.mangeat.services.RestController;
 import com.giu7.mangeat.ui.adapters.RestaurantAdapter;
 
 import org.json.JSONArray;
@@ -30,7 +32,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity{
+public class MainActivity extends AppCompatActivity implements Response.Listener<String>, Response.ErrorListener{
 
     RecyclerView restaurantRV;
     RecyclerView.LayoutManager layoutManager;
@@ -38,6 +40,8 @@ public class MainActivity extends AppCompatActivity{
     ArrayList<Restaurant> arrayList = new ArrayList<>();
 
     SharedPreferences prefs;
+
+    RestController restController;
 
 
     /*private ArrayList<Restaurant> getData(){
@@ -67,42 +71,8 @@ public class MainActivity extends AppCompatActivity{
         restaurantRV.setLayoutManager(layoutManager);
         restaurantRV.setAdapter(adapter);
 
-        RequestQueue queue = Volley.newRequestQueue(this);
-        String url ="http://5ba19290ee710f0014dd764c.mockapi.io/api/v1/restaurant";
-
-        StringRequest stringRequest = new StringRequest(
-                Request.Method.GET, // HTTP request method
-                url, // Server link
-                new Response.Listener<String>() {  // Listener for successful response
-                    @Override
-                    public void onResponse(String response) {
-                        Log.d("mainactivity",response);
-                        //Start parsing
-                        try {
-                            JSONObject responseJson = new JSONObject(response);
-                            JSONArray restaurantJsonArray = responseJson.getJSONArray("data");
-                            for (int i = 0; i< restaurantJsonArray.length(); i++){
-                                Restaurant restaurant = new Restaurant(restaurantJsonArray.getJSONObject(i));
-                                arrayList.add(restaurant);
-                            }
-                            adapter.setData(arrayList);
-
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-
-                    }
-                },
-                new Response.ErrorListener() { // Listener for error response
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Log.e("mainactivity",error.getMessage());
-                    }
-                }
-        );
-
-        // Add the request to the RequestQueue.
-        queue.add(stringRequest);
+        restController = new RestController(this);
+        restController.getRequest(Restaurant.ENDPOINT,this,this);
     }
 
     @Override
@@ -137,11 +107,30 @@ public class MainActivity extends AppCompatActivity{
 
         return super.onOptionsItemSelected(item);
     }
-    
+
     private void setLayoutManager(){
         layoutManager = new LinearLayoutManager(this);
         adapter.setGridMode(!adapter.isGridMode());
         restaurantRV.setLayoutManager(layoutManager);
         restaurantRV.setAdapter(adapter);
+    }
+
+    @Override
+    public void onErrorResponse(VolleyError error) {
+        Log.e("mainactivity",error.getMessage());
+        Toast.makeText(this, error.getMessage(), Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onResponse(String response) {
+        try{
+            JSONArray jsonArray = new JSONArray(response);
+            for (int i=0; i<jsonArray.length(); i++){
+                arrayList.add(new Restaurant(jsonArray.getJSONObject(i)));
+            }
+            adapter.setData(arrayList);
+        } catch (JSONException e){
+            Log.e("mainactivity",e.getMessage());
+        }
     }
 }
