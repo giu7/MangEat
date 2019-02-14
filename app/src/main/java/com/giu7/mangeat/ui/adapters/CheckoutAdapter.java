@@ -85,6 +85,44 @@ public class CheckoutAdapter extends RecyclerView.Adapter {
             cancella.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    Food food = data.get(getAdapterPosition());
+                    final float price = food.getPrezzo()* food.getQuantita();
+                    if (!onRemovedRowListener.onCheckMinOrder(price)){
+                        AlertDialog.Builder alertMinOrder = new AlertDialog.Builder(context);
+                        alertMinOrder.setMessage(R.string.sotto_min_ordine);
+                        alertMinOrder.setNeutralButton(R.string.ok, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                return;
+                            }
+                        });
+                        alertMinOrder.create().show();
+                    }
+                    else{
+                        AlertDialog.Builder alertDelete = new AlertDialog.Builder(context);
+                        alertDelete.setMessage(R.string.cancella_dialog);
+                        alertDelete.setPositiveButton(R.string.si, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                data.remove(getAdapterPosition());
+                                notifyItemRemoved(getAdapterPosition());
+                                onRemovedRowListener.onChange(price);
+                            }
+                        });
+                        alertDelete.setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                return;
+                            }
+                        });
+                        alertDelete.create().show();
+                    }
+                }
+            });
+
+            /*cancella.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
                     AlertDialog.Builder alert = new AlertDialog.Builder(context);
                     alert.setMessage(R.string.cancella_dialog);
                     alert.setPositiveButton(R.string.si, new DialogInterface.OnClickListener() {
@@ -118,7 +156,7 @@ public class CheckoutAdapter extends RecyclerView.Adapter {
                     });
                     alert.create().show();
                 }
-            });
+            });*/
         }
     }
 }
