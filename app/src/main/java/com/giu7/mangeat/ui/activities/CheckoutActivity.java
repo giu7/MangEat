@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.giu7.mangeat.R;
 import com.giu7.mangeat.datamodels.Food;
 import com.giu7.mangeat.datamodels.Ordine;
@@ -37,7 +38,7 @@ public class CheckoutActivity extends AppCompatActivity implements CheckoutAdapt
     private ArrayList<Food> arrayList;
 
     private Restaurant getRestaurant(){
-        return new Restaurant("Pizzeria", "Via da qui", 10.00f, R.drawable.pizza);
+        return new Restaurant("Pizzeria", "Via da qui", 10.00f, "http://www.lamescolanza.com/wp-content/uploads/2017/01/McDonalds.png");
     }
 
     private ArrayList<Food> getData(){
@@ -74,15 +75,21 @@ public class CheckoutActivity extends AppCompatActivity implements CheckoutAdapt
 
         nome.setText(restaurant.getNome());
         indirizzo.setText(restaurant.getIndirizzo());
-        logo.setImageResource(restaurant.getImg());
+        Glide.with(this).load(restaurant.getImg()).into(logo);
         minOrder.setText(String.valueOf(restaurant.getMinOrdine()));
         totaleTv.setText(String.valueOf(ordine.getTotale()));
-
     }
 
     @Override
     public void onChange(float price) {
         ordine.calcolaTotale();
         totaleTv.setText(String.valueOf(ordine.getTotale()));
+    }
+
+    @Override
+    public boolean onCheckMinOrder(float price) {
+        if ((ordine.getTotale()-price)>=ordine.getRestaurant().getMinOrdine())
+            return true;
+        return false;
     }
 }

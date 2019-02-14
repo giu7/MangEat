@@ -33,6 +33,7 @@ public class CheckoutAdapter extends RecyclerView.Adapter {
 
     public interface onRemovedRowListener{
         void onChange (float price);
+        boolean onCheckMinOrder (float price);
     }
 
     private onRemovedRowListener onRemovedRowListener;
@@ -86,17 +87,30 @@ public class CheckoutAdapter extends RecyclerView.Adapter {
                 public void onClick(View v) {
                     AlertDialog.Builder alert = new AlertDialog.Builder(context);
                     alert.setMessage(R.string.cancella_dialog);
-                    alert.setPositiveButton("Si", new DialogInterface.OnClickListener() {
+                    alert.setPositiveButton(R.string.si, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             Food food = data.get(getAdapterPosition());
                             float price = food.getPrezzo()* food.getQuantita();
-                            data.remove(getAdapterPosition());
-                            notifyItemRemoved(getAdapterPosition());
-                            onRemovedRowListener.onChange(price);
+                            if (onRemovedRowListener.onCheckMinOrder(price)){
+                                data.remove(getAdapterPosition());
+                                notifyItemRemoved(getAdapterPosition());
+                                onRemovedRowListener.onChange(price);
+                            }
+                            else{
+                                AlertDialog.Builder alert2 = new AlertDialog.Builder(context);
+                                alert2.setMessage(R.string.sotto_min_ordine);
+                                alert2.setNeutralButton(R.string.ok, new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        return;
+                                    }
+                                });
+                                alert2.create().show();
+                            }
                         }
                     });
-                    alert.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    alert.setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             return;

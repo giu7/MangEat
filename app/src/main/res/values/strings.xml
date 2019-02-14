@@ -25,4 +25,10 @@
     <string name="paga">Vai al pagamento</string>
     <string name="x">x</string>
     <string name="cancella_dialog">Vuoi davvero eliminare questi panini?</string>
+    <string name="si">Si</string>
+    <string name="sotto_min_ordine">Non posso eliminare questo elemento perchè scenderesti sotto il minimo d\'ordine!</string>
+    <string name="ok">Ok</string>
+    <string name="no">No</string>
+
+
 </resources>

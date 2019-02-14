@@ -12,6 +12,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.giu7.mangeat.R;
 import com.giu7.mangeat.datamodels.Food;
 import com.giu7.mangeat.datamodels.Restaurant;
@@ -73,14 +74,12 @@ public class ShopActivity extends AppCompatActivity implements MenuAdapter.onQua
 
         nome.setText(restaurant.getNome());
         indirizzo.setText(restaurant.getIndirizzo());
-        logo.setImageResource(restaurant.getImg());
+        Glide.with(this).load(restaurant.getImg()).into(logo);
         minOrder.setText(String.valueOf(restaurant.getMinOrdine()));
-
-
     }
 
     private Restaurant getRestaurant(){
-        return new Restaurant("Pizzeria", "Via da qui", 10.00f, R.drawable.pizza);
+        return new Restaurant("Pizzeria", "Via da qui", 10.00f, "http://www.lamescolanza.com/wp-content/uploads/2017/01/McDonalds.png");
     }
 
     private ArrayList<Food> getData(){

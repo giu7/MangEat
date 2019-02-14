@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.giu7.mangeat.R;
 import com.giu7.mangeat.datamodels.Restaurant;
 import com.giu7.mangeat.ui.activities.ShopActivity;
@@ -23,6 +24,15 @@ public class RestaurantAdapter extends RecyclerView.Adapter {
     private Context context;
     private boolean isGridMode;
 
+    public ArrayList<Restaurant> getData() {
+        return data;
+    }
+
+    public void setData(ArrayList<Restaurant> data) {
+        this.data = data;
+        notifyDataSetChanged();
+    }
+
     public boolean isGridMode(){
         return  isGridMode;
     }
@@ -31,10 +41,16 @@ public class RestaurantAdapter extends RecyclerView.Adapter {
         isGridMode=mode;
     }
 
-    public RestaurantAdapter(Context context, ArrayList<Restaurant> data){
+    /*public RestaurantAdapter(Context context, ArrayList<Restaurant> data){
         inflater = LayoutInflater.from(context);
         this.data = data;
         this.context = context;
+    }*/
+
+    public RestaurantAdapter(Context context){
+        inflater = LayoutInflater.from(context);
+        this.data = new ArrayList<>();
+        this.context=context;
     }
 
     @NonNull
@@ -53,7 +69,7 @@ public class RestaurantAdapter extends RecyclerView.Adapter {
         vh.restaurantName.setText(item.getNome());
         vh.restaurantAddress.setText(item.getIndirizzo());
         vh.restaurantMinOrder.append(String.valueOf(item.getMinOrdine()));
-        vh.restaurantImage.setImageResource(item.getImg());
+        Glide.with(context).load(data.get(position).getImg()).into(vh.restaurantImage);
     }
 
     @Override
