@@ -1,9 +1,13 @@
 package com.giu7.mangeat.datamodels;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class Food {
     private String nome;
     private float prezzo;
     private int quantita;
+    private String id;
 
     public Food(String nome, float prezzo, int quantita) {
         this.nome = nome;
@@ -14,6 +18,13 @@ public class Food {
     public Food(String nome, float prezzo) {
         this.nome = nome;
         this.prezzo = prezzo;
+    }
+
+    public Food (JSONObject jsonFood) throws JSONException{
+        nome = jsonFood.getString("name");
+        prezzo = (float)jsonFood.getDouble("price");
+        quantita = 0;
+        id = jsonFood.getString("id");
     }
 
     public int getQuantita() {

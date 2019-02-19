@@ -68,7 +68,7 @@ public class RestaurantAdapter extends RecyclerView.Adapter {
 
         vh.restaurantName.setText(item.getNome());
         vh.restaurantAddress.setText(item.getIndirizzo());
-        vh.restaurantMinOrder.append(String.valueOf(item.getMinOrdine()));
+        vh.restaurantMinOrder.setText(String.valueOf(item.getMinOrdine()));
         Glide.with(context).load(data.get(position).getImg()).into(vh.restaurantImage);
     }
 
@@ -83,7 +83,6 @@ public class RestaurantAdapter extends RecyclerView.Adapter {
         public TextView restaurantAddress;
         public TextView restaurantMinOrder;
         public ImageView restaurantImage;
-        //public Button menuBtn;
 
         public RestaurantViewHolder(View itemView) {
             super(itemView);
@@ -95,7 +94,9 @@ public class RestaurantAdapter extends RecyclerView.Adapter {
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    context.startActivity(new Intent(context, ShopActivity.class));
+                    Intent intent = new Intent(context, ShopActivity.class);
+                    intent.putExtra(ShopActivity.RESTAURANT_ID_KEY, data.get(getAdapterPosition()).getId());
+                    context.startActivity(intent);
                 }
             });
         }

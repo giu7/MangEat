@@ -48,13 +48,27 @@
                 android:textAlignment="viewStart"
                 android:textSize="12sp" />
 
-            <TextView
-                android:id="@+id/min_order_tv"
-                android:layout_width="match_parent"
+            <LinearLayout
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/min_ordine"
-                android:textAlignment="viewStart"
-                android:textSize="12sp" />
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/min_ordine"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/min_order_tv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="viewStart"
+                    android:textSize="12sp" />
+
+            </LinearLayout>
+
+
 
         </LinearLayout>
 

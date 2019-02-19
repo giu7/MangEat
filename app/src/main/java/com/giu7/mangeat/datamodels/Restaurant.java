@@ -15,13 +15,6 @@ public class Restaurant {
 
     public static final String ENDPOINT = "restaurants/";
 
-    public ArrayList<Food> getProdotti() {
-        return prodotti;
-    }
-
-    public void setProdotti(ArrayList<Food> prodotti) {
-        this.prodotti = prodotti;
-    }
 
     /*public Restaurant(String nome, String indirizzo, float minOrdine) {
         this.nome = nome;
@@ -43,6 +36,14 @@ public class Restaurant {
         minOrdine = (float) jsonRestaurant.getDouble("min_order");
         img = jsonRestaurant.getString("image_url");
         id =jsonRestaurant.getString("id");
+    }
+
+    public ArrayList<Food> getProdotti() {
+        return prodotti;
+    }
+
+    public void setProdotti(ArrayList<Food> prodotti) {
+        this.prodotti = prodotti;
     }
 
     public String getNome() {
@@ -77,4 +78,11 @@ public class Restaurant {
         this.img = img;
     }
 
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 }

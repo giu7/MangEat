@@ -17,21 +17,31 @@ import java.util.ArrayList;
 
 public class MenuAdapter extends RecyclerView.Adapter {
 
-    private LayoutInflater inflater;
-    private Context context;
-    private ArrayList<Food> data;
-
-    public MenuAdapter(Context context, ArrayList<Food> data){
-        inflater = LayoutInflater.from(context);
-        this.data = data;
-        this.context = context;
-    }
-
     public interface onQuantityChangedListener{
         void onChange(float price);
     }
 
+    private LayoutInflater inflater;
+    private Context context;
+    private ArrayList<Food> data;
     private onQuantityChangedListener onQuantityChangedListener;
+
+    /*public MenuAdapter(Context context, ArrayList<Food> data){
+        inflater = LayoutInflater.from(context);
+        this.data = data;
+        this.context = context;
+    }*/
+
+    public MenuAdapter(Context context){
+        inflater = LayoutInflater.from(context);
+        this.context=context;
+        data = new ArrayList<>();
+    }
+
+    public void setData(ArrayList<Food> data) {
+        this.data = data;
+        notifyDataSetChanged();
+    }
 
     public MenuAdapter.onQuantityChangedListener getOnQuantityChangedListener() {
         return onQuantityChangedListener;
@@ -80,7 +90,6 @@ public class MenuAdapter extends RecyclerView.Adapter {
             minusBtn=itemView.findViewById(R.id.minus_btn);
             plusBtn=itemView.findViewById(R.id.plus_btn);
 
-
             plusBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -100,45 +109,18 @@ public class MenuAdapter extends RecyclerView.Adapter {
             Food food = data.get(getAdapterPosition());
             int n = food.getQuantita();
             if (n==Utils.MAX_PANINI) return;
-            /*if (n==Utils.MAX_PANINI-1)
-                plusBtn.setEnabled(false);
-            if (n==Utils.MIN_PANINI)
-                minusBtn.setEnabled(true);*/
             food.plusQuantita();
             notifyItemChanged(getAdapterPosition());
             onQuantityChangedListener.onChange(food.getPrezzo());
-
-            /*int n = Integer.parseInt((String) quantitaTv.getText());
-            if (n==Utils.MAX_PANINI-1)
-                plusBtn.setEnabled(false);
-            if (n==Utils.MIN_PANINI)
-                minusBtn.setEnabled(true);
-            quantitaTv.setText(String.valueOf(n+1));*/
         }
 
         private void minusOne(){
             Food food = data.get(getAdapterPosition());
             int n = food.getQuantita();
             if (n==0) return;
-            /*if (n== Utils.MIN_PANINI+1)
-                minusBtn.setEnabled(false);
-            else if (n>Utils.MIN_PANINI+1)
-                minusBtn.setEnabled(true);
-            if (n==Utils.MAX_PANINI)
-                plusBtn.setEnabled(true);*/
             food.minusQuantita();
             notifyItemChanged(getAdapterPosition());
             onQuantityChangedListener.onChange(food.getPrezzo()*(-1));
-
-            /*int n = Integer.parseInt((String) quantitaTv.getText());
-            if (n== Utils.MIN_PANINI+1)
-                minusBtn.setEnabled(false);
-            else if (n>Utils.MIN_PANINI+1)
-                minusBtn.setEnabled(true);
-            if (n==Utils.MAX_PANINI)
-                plusBtn.setEnabled(true);
-
-            quantitaTv.setText(String.valueOf(n-1));*/
         }
     }
 }
