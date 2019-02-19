@@ -26,12 +26,9 @@ public class CheckoutActivity extends AppCompatActivity implements CheckoutAdapt
     private RecyclerView.LayoutManager layoutManager;
     private CheckoutAdapter adapter;
 
-    private TextView nome;
-    private TextView indirizzo;
+    private TextView nome, indirizzo, minOrder, totaleTv;
     private Button paga;
     private ImageView logo;
-    private TextView minOrder;
-    private TextView totaleTv;
 
     private Ordine ordine;
     private Restaurant restaurant;
@@ -49,7 +46,6 @@ public class CheckoutActivity extends AppCompatActivity implements CheckoutAdapt
 
         return arrayList;
     }
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

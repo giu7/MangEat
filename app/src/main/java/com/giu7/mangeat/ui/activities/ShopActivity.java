@@ -32,25 +32,22 @@ public class ShopActivity extends AppCompatActivity implements MenuAdapter.onQua
 
     public static final String RESTAURANT_ID_KEY = "RESTAURANT_ID_KEY";
     private static final String TAG = ShopActivity.class.getSimpleName();
+    private static final String PRODUCTS_ARRAY_NAME = "products";
 
     private RecyclerView menuRV;
     private RecyclerView.LayoutManager layoutManager;
     private MenuAdapter adapter;
     private ArrayList<Food> arrayList;
 
-    private TextView nome;
-    private TextView indirizzo;
+    private TextView nome, indirizzo, minOrder, totaleTv;
+    private ImageView logo, map;
     private Button checkout;
     private ProgressBar progressBar;
-    private ImageView logo;
-    private ImageView map;
-    private TextView minOrder;
-    private TextView totaleTv;
 
     private Restaurant restaurant;
     private float totale = 0;
 
-    RestController restController;
+    private RestController restController;
     private String restaurantId;
 
     @Override
@@ -85,11 +82,9 @@ public class ShopActivity extends AppCompatActivity implements MenuAdapter.onQua
         menuRV.setLayoutManager(layoutManager);
         menuRV.setAdapter(adapter);
 
-
         restaurantId = getIntent().getStringExtra(ShopActivity.RESTAURANT_ID_KEY);
         restController = new RestController(this);
-        restController.getRequest(
-                Restaurant.ENDPOINT.concat(restaurantId), this, this);
+        restController.getRequest(Restaurant.ENDPOINT.concat(restaurantId), this, this);
     }
 
     private void bindData(){
@@ -151,7 +146,7 @@ public class ShopActivity extends AppCompatActivity implements MenuAdapter.onQua
         try{
             JSONObject jsonObject = new JSONObject(response);
             restaurant = new Restaurant(jsonObject);
-            JSONArray jsonProds = jsonObject.getJSONArray("products");
+            JSONArray jsonProds = jsonObject.getJSONArray(PRODUCTS_ARRAY_NAME);
             ArrayList<Food> prodotti = new ArrayList<>();
 
             for (int i = 0; i<jsonProds.length(); i++)

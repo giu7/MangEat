@@ -74,12 +74,8 @@ public class MenuAdapter extends RecyclerView.Adapter {
     }
 
     public class MenuViewHolder extends RecyclerView.ViewHolder{
-        public TextView menuNomeTv;
-        public TextView menuPrezzoTv;
-        public TextView quantitaTv;
-        public Button minusBtn;
-        public Button plusBtn;
-
+        public TextView menuNomeTv, menuPrezzoTv, quantitaTv;
+        public Button minusBtn, plusBtn;
 
         public MenuViewHolder(View itemView) {
             super(itemView);

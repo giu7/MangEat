@@ -18,23 +18,20 @@ import com.giu7.mangeat.Utils;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener{
 
-    Button loginBtn;
-    Button registerBtn;
+    private static final String TAG = LoginActivity.class.getSimpleName();
+    private final static String EMAIL_KEY = "email";
+    private final static String NUMERO_KEY = "numero";
 
-    EditText mailEt;
-    EditText passwordEt;
+    private Button loginBtn, registerBtn;
+    private EditText mailEt, passwordEt;
 
-    String mail;
-    String password;
-
-    final static String EMAIL_KEY = "email";
-    final static String NUMERO_KEY = "numero";
+    private String mail, password;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        Log.i("Main Activity","Activity Created");
+        Log.i(TAG,"Activity Created");
 
         mailEt=findViewById(R.id.mail_et);
         passwordEt=findViewById(R.id.password_et);
@@ -51,10 +48,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private void printToast(@StringRes int resID){
         Toast.makeText(this, getString(resID), Toast.LENGTH_SHORT).show();
     }
-
-    /*private void printToast(String s){
-        Toast.makeText(this, s, Toast.LENGTH_SHORT).show();
-    }*/
 
     private void doLogin(){
 

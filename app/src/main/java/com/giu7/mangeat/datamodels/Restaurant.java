@@ -6,15 +6,14 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 public class Restaurant {
+    public static final String ENDPOINT = "restaurants/";
+
     private String nome;
     private String indirizzo;
     private float minOrdine;
     private String img;
     private ArrayList<Food> prodotti;
     private String id;
-
-    public static final String ENDPOINT = "restaurants/";
-
 
     /*public Restaurant(String nome, String indirizzo, float minOrdine) {
         this.nome = nome;

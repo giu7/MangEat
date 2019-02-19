@@ -24,6 +24,17 @@ public class RestaurantAdapter extends RecyclerView.Adapter {
     private Context context;
     private boolean isGridMode;
 
+    /*public RestaurantAdapter(Context context, ArrayList<Restaurant> data){
+        inflater = LayoutInflater.from(context);
+        this.data = data;
+        this.context = context;
+    }*/
+
+    public RestaurantAdapter(Context context){
+        inflater = LayoutInflater.from(context);
+        this.data = new ArrayList<>();
+        this.context=context;
+    }
     public ArrayList<Restaurant> getData() {
         return data;
     }
@@ -39,18 +50,6 @@ public class RestaurantAdapter extends RecyclerView.Adapter {
 
     public void setGridMode(boolean mode){
         isGridMode=mode;
-    }
-
-    /*public RestaurantAdapter(Context context, ArrayList<Restaurant> data){
-        inflater = LayoutInflater.from(context);
-        this.data = data;
-        this.context = context;
-    }*/
-
-    public RestaurantAdapter(Context context){
-        inflater = LayoutInflater.from(context);
-        this.data = new ArrayList<>();
-        this.context=context;
     }
 
     @NonNull
@@ -79,9 +78,7 @@ public class RestaurantAdapter extends RecyclerView.Adapter {
 
     public class RestaurantViewHolder extends RecyclerView.ViewHolder{
 
-        public TextView restaurantName;
-        public TextView restaurantAddress;
-        public TextView restaurantMinOrder;
+        public TextView restaurantName, restaurantAddress, restaurantMinOrder;
         public ImageView restaurantImage;
 
         public RestaurantViewHolder(View itemView) {

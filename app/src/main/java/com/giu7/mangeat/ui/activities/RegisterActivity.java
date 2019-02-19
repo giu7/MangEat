@@ -10,8 +10,8 @@ import com.giu7.mangeat.R;
 
 public class RegisterActivity extends AppCompatActivity {
 
-    EditText nomeEt, cognomeEt, mailET, passwordEt, confPasswordEt;
-    Button registerBtn;
+    private EditText nomeEt, cognomeEt, mailET, passwordEt, confPasswordEt;
+    private Button registerBtn;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

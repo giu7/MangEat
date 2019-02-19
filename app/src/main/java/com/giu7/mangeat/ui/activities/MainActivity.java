@@ -34,14 +34,17 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements Response.Listener<String>, Response.ErrorListener{
 
-    RecyclerView restaurantRV;
-    RecyclerView.LayoutManager layoutManager;
-    RestaurantAdapter adapter;
-    ArrayList<Restaurant> arrayList = new ArrayList<>();
+    private static final String TAG = MainActivity.class.getSimpleName();
+    private static final String VIEW_MODE = "viewMode";
 
-    SharedPreferences prefs;
+    private RecyclerView restaurantRV;
+    private RecyclerView.LayoutManager layoutManager;
+    private RestaurantAdapter adapter;
+    private ArrayList<Restaurant> arrayList = new ArrayList<>();
 
-    RestController restController;
+    private SharedPreferences prefs;
+
+    private RestController restController;
 
 
     /*private ArrayList<Restaurant> getData(){
@@ -65,7 +68,7 @@ public class MainActivity extends AppCompatActivity implements Response.Listener
 
         prefs = getSharedPreferences(Utils.PACKAGE_NAME,MODE_PRIVATE);
         if (prefs != null) {
-            adapter.setGridMode(prefs.getBoolean("viewMode",true));
+            adapter.setGridMode(prefs.getBoolean(VIEW_MODE,true));
         }
 
         restaurantRV.setLayoutManager(layoutManager);
@@ -79,7 +82,7 @@ public class MainActivity extends AppCompatActivity implements Response.Listener
     protected void onPause() {
         super.onPause();
         SharedPreferences.Editor preferencesEditor = prefs.edit();
-        preferencesEditor.putBoolean("viewMode", adapter.isGridMode());
+        preferencesEditor.putBoolean(VIEW_MODE, adapter.isGridMode());
         preferencesEditor.apply();
     }
 
@@ -117,7 +120,7 @@ public class MainActivity extends AppCompatActivity implements Response.Listener
 
     @Override
     public void onErrorResponse(VolleyError error) {
-        Log.e("mainactivity",error.getMessage());
+        Log.e(TAG,error.getMessage());
         Toast.makeText(this, error.getMessage(), Toast.LENGTH_SHORT).show();
     }
 
@@ -130,7 +133,7 @@ public class MainActivity extends AppCompatActivity implements Response.Listener
             }
             adapter.setData(arrayList);
         } catch (JSONException e){
-            Log.e("mainactivity",e.getMessage());
+            Log.e(TAG,e.getMessage());
         }
     }
 }
